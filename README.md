@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextJs-Archetype
 
-## Getting Started
+Este es un arquetipo creado a partir de [Next.js](https://nextjs.org/) y utilizando [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-First, run the development server:
+## Ejecución en desarrollo
+
+Para instalar las dependencias necesarias:
+
+```bash
+npm install
+```
+
+Para ejecutar el ambiente de desarrollo:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3000](http://localhost:3000) con tu navegador para ver el resultado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El punto de entrada es `app/page.tsx`. Las paginas se auto-actualizan cuando las editas.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Login con Providers de 3eros
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Se utiliza [NextAuth.js](https://https://next-auth.js.org//) para administrar las funcionalidades de indentificación.
 
-## Learn More
+Asegurarse de cargar las variables necesarias para cada provider en `env.local`.
 
-To learn more about Next.js, take a look at the following resources:
+Se pueden consultar los detalles de configuración de cada Provider en -> [Documentación Provider](https://next-auth.js.org/providers//)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Por defecto se encuentra configurado el provider de Google, a continuación la documentación necesaria:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+* [Documentación Google Provider](https://developers.google.com/identity/protocols/oauth2//)
+* [Configuración Google Provider](https://console.developers.google.com/apis/credentials//)

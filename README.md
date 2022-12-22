@@ -33,10 +33,12 @@ Por defecto se encuentra configurado el provider de Google, a continuación la d
 * [Documentación Google Provider](https://developers.google.com/identity/protocols/oauth2//)
 * [Configuración Google Provider](https://console.developers.google.com/apis/credentials//)
 
+Asegurarse de cargar las los datos de conexión a la base de datos `db/config/config.js`.
+
 Para crear la base de datos utilizamos Sequelize CLI con el comando
 
 ```bash
 sequelize db:create
 ```
 
-Creado con Node v18.12.1
+Proyecto creado con Node v18.12.1

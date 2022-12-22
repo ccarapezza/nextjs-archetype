@@ -1,5 +1,5 @@
 import { unstable_getServerSession } from "next-auth/next";
-import UserInformation from "./user-information";
+import UserInformation from "./UserInformation";
 
 export default async function AppDescription() {
   const session = await unstable_getServerSession();
@@ -9,7 +9,7 @@ export default async function AppDescription() {
       <div>
         This is the application description component (server component).
       </div>
-      <UserInformation data={session?.user} />
+      <UserInformation data={session} />
     </div>
   );
 }

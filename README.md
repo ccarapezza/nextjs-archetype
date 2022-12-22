@@ -26,9 +26,17 @@ Se utiliza [NextAuth.js](https://https://next-auth.js.org//) para administrar la
 
 Asegurarse de cargar las variables necesarias para cada provider en `env.local`.
 
-Se pueden consultar los detalles de configuración de cada Provider en -> [Documentación Provider](https://next-auth.js.org/providers//)
+Se pueden consultar los detalles de configuración de cada Provider en -> [Documentación Providers](https://next-auth.js.org/providers//)
 
 Por defecto se encuentra configurado el provider de Google, a continuación la documentación necesaria:
 
 * [Documentación Google Provider](https://developers.google.com/identity/protocols/oauth2//)
 * [Configuración Google Provider](https://console.developers.google.com/apis/credentials//)
+
+Para crear la base de datos utilizamos Sequelize CLI con el comando
+
+```bash
+sequelize db:create
+```
+
+Creado con Node v18.12.1

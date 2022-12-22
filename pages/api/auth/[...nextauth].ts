@@ -12,8 +12,18 @@ import AppleProvider from "next-auth/providers/apple"
 */
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
+
+import SequelizeAdapter from "@next-auth/sequelize-adapter"
+import db from "../../../db/models/index"
+
+db.sequelize.sync({
+  force: true,
+  logging: console.log
+});
+
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
+  adapter: SequelizeAdapter(db.sequelize),
   providers: [
     /*
     EmailProvider({

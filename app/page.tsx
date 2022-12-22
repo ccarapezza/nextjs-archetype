@@ -1,19 +1,22 @@
-"use client";
-import { Button, Grid, Stack } from "@mui/material";
+import React from 'react'
+import Grid from "./components/material/Grid";
+import Stack from "./components/material/Stack";
 import { faHouse } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import LoginBtn from "./login-btn";
-import AppDescription from "./app-description";
-
+import LoginButton from "./components/LoginButton";
+import AppDescription from "./components/AppDescription";
+import Paper from "./components/material/Paper";
 
 export default function Home() {
   return (
     <Grid container height="100vh" alignItems="center" justifyContent="center" direction="column">
       <h1><FontAwesomeIcon icon={faHouse} />Using Material UI with Next.js 13</h1>
-      <Stack direction="row" columnGap={1}>
-      <LoginBtn>
-        Ok!
-      </LoginBtn>
+      <Stack direction="column" columnGap={1}>
+      <LoginButton>
+        <Paper sx={{p: 2, m: 2}}>
+          <AppDescription/>
+        </Paper>
+      </LoginButton>
       </Stack>
     </Grid>
   );

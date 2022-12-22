@@ -19,15 +19,21 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.0",
+    "@next-auth/sequelize-adapter": "^1.0.7",
     "@types/node": "18.11.15",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
+    "dotenv": "^16.0.3",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "mysql2": "^2.3.3",
     "next": "13.0.6",
     "next-auth": "^4.18.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sequelize": "^6.27.0",
+    "sequelize-cli": "^6.5.2",
+    "sequelize-typescript": "^2.1.5",
     "typescript": "4.9.4"
   }
 }

@@ -24,7 +24,7 @@ El punto de entrada es `app/page.tsx`. Las paginas se auto-actualizan cuando las
 
 Se utiliza [NextAuth.js](https://https://next-auth.js.org//) para administrar las funcionalidades de indentificación.
 
-Asegurarse de cargar las variables necesarias para cada provider en `env.local`.
+Asegurarse de cargar las variables necesarias para cada provider en `.env.local`.
 
 Se pueden consultar los detalles de configuración de cada Provider en -> [Documentación Providers](https://next-auth.js.org/providers//)
 

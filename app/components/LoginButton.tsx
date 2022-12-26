@@ -1,23 +1,32 @@
 "use client";
 
+import { faSignIn, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
-export default function LoginButton({ children }:{ children: React.ReactNode }) {
+export default function LoginButton() {
   const { data: session } = useSession();
   if (session) {
     return (
       <>
         Signed in as {session?.user?.email} <br />
         {/* <UserInformation data={session.user} /> */}
-        <button onClick={() => signOut()}>Sign out</button>
-        {children}
+        <button onClick={() => signOut()}>
+          <FontAwesomeIcon icon={faSignOut}/> Sign out
+        </button>
       </>
     );
   }
   return (
     <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <p style={{textAlign: "center"}}>Not signed in</p>
+      <button onClick={() => signIn()}>
+        <FontAwesomeIcon icon={faSignIn}/> Sign in
+      </button>
+      <p>
+        <small>Haven't an account? <Link href={'/auth/register'}>Sign Up</Link></small>
+      </p>
     </>
   );
 }

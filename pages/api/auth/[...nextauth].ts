@@ -1,63 +1,30 @@
 import NextAuth from "next-auth"
-/*
-import Auth0Provider from "next-auth/providers/auth0"
-import FacebookProvider from "next-auth/providers/facebook"
-import GithubProvider from "next-auth/providers/github"
-*/
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
-/*
-import TwitterProvider from "next-auth/providers/twitter"
-import EmailProvider from "next-auth/providers/email"
-import AppleProvider from "next-auth/providers/apple"
-*/
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
+import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter"
+import { sequelizeInstace, initDb, User } from "../../../db/index"
+import { DataTypes } from "sequelize"
+import bcrypt from 'bcryptjs';
 
-import SequelizeAdapter from "@next-auth/sequelize-adapter"
-import db from "../../../db/models/index"
-
-db.sequelize.sync({
-  force: true,
-  logging: console.log
-});
+const adapter = SequelizeAdapter(sequelizeInstace!, { 
+  models: {
+    User: sequelizeInstace.define("users", {
+      ...models.User,
+      password:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      }
+    }),
+  },
+ });
+initDb();
 
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
-  adapter: SequelizeAdapter(db.sequelize),
+  adapter,
   providers: [
-    /*
-    EmailProvider({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
-    }),
-    AppleProvider({
-      clientId: process.env.APPLE_ID,
-      clientSecret: {
-        appleId: process.env.APPLE_ID,
-        teamId: process.env.APPLE_TEAM_ID,
-        privateKey: process.env.APPLE_PRIVATE_KEY,
-        keyId: process.env.APPLE_KEY_ID,
-      },
-    }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_ID,
-      clientSecret: process.env.AUTH0_SECRET,
-      // @ts-ignore
-      domain: process.env.AUTH0_DOMAIN,
-    }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-      // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-      // @ts-ignore
-      scope: "read:user",
-    }),
-    */
     GoogleProvider({
       clientId: process.env.GOOGLE_ID?process.env.GOOGLE_ID:"",
       clientSecret: process.env.GOOGLE_SECRET?process.env.GOOGLE_SECRET:"",
@@ -70,30 +37,25 @@ export default NextAuth({
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
-        console.log("CredentialsProvider authorize", credentials);
-        // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
-        if (user && credentials?.username==="admin" && credentials?.password==="admin") {
+        const user = await User.findOne({
+          where: {
+            name: credentials?.username 
+        }});
+
+        if (user && bcrypt.compareSync(credentials?.password!, user?.password!)) {
           // Any object returned will be saved in `user` property of the JWT
-          return user
+          return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null
-  
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       }
-    })
-    /*
-    TwitterProvider({
-      clientId: process.env.TWITTER_ID,
-      clientSecret: process.env.TWITTER_SECRET,
-    }),
-    */
+    })   
   ],
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
   // https://next-auth.js.org/configuration/databases
@@ -161,7 +123,6 @@ export default NextAuth({
     // async signIn({ user, account, profile, email, credentials }) { return true },
     async redirect({ url, baseUrl }) {
       return Promise.resolve(baseUrl);
-
     },
     // async session({ session, user, token}) { return session },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }

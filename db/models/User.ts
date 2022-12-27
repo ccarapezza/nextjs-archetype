@@ -4,7 +4,7 @@ import { Column, DataType, Model, Table } from "sequelize-typescript";
 import { User as UserDefinition } from "@next-auth/sequelize-adapter/dist/models";
 
 interface CustomAdapterUser extends AdapterUser {
-  password: string;
+  password?: string;
 }
 
 @Table({
@@ -25,8 +25,8 @@ export class User extends Model<CustomAdapterUser, Partial<CustomAdapterUser>>{
   @Column({...UserDefinition.emailVerified})
   public emailVerified!: Date | null;
 
-  @Column({type: DataType.STRING, allowNull: false})
-  public password!: string;
+  @Column({type: DataType.STRING, allowNull: true})
+  public password?: string;
 
   @Column({...UserDefinition.image})
   public image?: string | null | undefined;

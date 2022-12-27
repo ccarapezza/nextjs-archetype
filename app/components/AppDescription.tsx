@@ -1,8 +1,9 @@
 import { unstable_getServerSession } from "next-auth/next";
+import AsyncComponentWrapper from "./AsyncComponentWrapper";
 import Paper from "./material/Paper";
 import UserInformation from "./UserInformation";
 
-export default async function AppDescription() {
+async function AppDescriptionAsync() {
   const session = await unstable_getServerSession();
   console.log("Loading app-description.js");
   return (
@@ -12,5 +13,15 @@ export default async function AppDescription() {
       </div>
       <UserInformation data={session} />
     </Paper>
+  );
+}
+
+//TODO: This is a workaround for allow promised functional components without console errors
+export default function AppDescription() {
+  return (
+    <AsyncComponentWrapper>
+      {/* @ts-expect-error Server Component */}
+      <AppDescriptionAsync/>
+    </AsyncComponentWrapper>
   );
 }

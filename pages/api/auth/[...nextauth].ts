@@ -14,7 +14,7 @@ const adapter = SequelizeAdapter(sequelizeInstace!, {
       ...models.User,
       password:{
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       }
     }),
   },

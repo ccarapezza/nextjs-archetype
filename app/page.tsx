@@ -5,16 +5,15 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import LoginButton from "./components/LoginButton";
 import AppDescription from "./components/AppDescription";
+import AsyncComponentWrapper from './components/AsyncComponentWrapper';
 
 export default function Home() {
-  const renderAppDescription = () => {}
   return (
     <Grid container height="100vh" alignItems="center" justifyContent="center" direction="column">
       <h1><FontAwesomeIcon icon={faHouse} />Using Material UI with Next.js 13</h1>
       <Stack direction="column" columnGap={1}>
-        <LoginButton />
-        {/* @ts-expect-error Server Component */}
-        <AppDescription/>
+          <LoginButton />
+          <AppDescription/>
       </Stack>
     </Grid>
   );

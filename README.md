@@ -4,9 +4,9 @@ Este es un arquetipo creado a partir de [Next.js](https://nextjs.org/) y utiliza
 
 ## Índice
 
-- [Ejecución en desarrollo](<#Ejecución en desarrollo>)
-- [Login con Providers de 3eros](<#Login con Providers de 3eros>)
-- [Base de datos](<#Base de datos>)
+- [Ejecución en desarrollo](<#ejecución-en-desarrollo>)
+- [Login con Providers de 3eros](<#login-con-Providers-de-3eros>)
+- [Base de datos](<#base-de-datos>)
 
 ## Ejecución en desarrollo
 

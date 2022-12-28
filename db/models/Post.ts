@@ -10,7 +10,7 @@ import { User } from "./User";
 
 @Table({
   timestamps: true,
-  tableName: "post",
+  tableName: "posts",
 })
 export class Post extends Model {
   @Column({ type: DataType.STRING, allowNull: false })
@@ -20,7 +20,6 @@ export class Post extends Model {
   public content!: string;
   /* Associantions */
   // User
-/*
   @BelongsTo(() => User)
   public user!: User;
 
@@ -28,6 +27,5 @@ export class Post extends Model {
   @Column({type: DataType.UUID})
   public userId?: string;
   // End User
-*/
   
 }

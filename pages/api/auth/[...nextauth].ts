@@ -4,19 +4,16 @@ import CredentialsProvider from "next-auth/providers/credentials"
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 import SequelizeAdapter, { models } from "@next-auth/sequelize-adapter"
-import { sequelizeInstace, initDb, User } from "../../../db/index"
-import { DataTypes } from "sequelize"
+import { sequelizeInstace, initDb, User, Account, Session, VerificationToken } from "../../../db/index"
 import bcrypt from 'bcryptjs';
 
-const adapter = SequelizeAdapter(sequelizeInstace!, { 
+const adapter = SequelizeAdapter(sequelizeInstace!, {
+  synchronize: false,
   models: {
-    User: sequelizeInstace.define("users", {
-      ...models.User,
-      password:{
-        type: DataTypes.STRING,
-        allowNull: true,
-      }
-    }),
+    User: sequelizeInstace.define("users", User.getAttributes<User>()),
+    Account: sequelizeInstace.define("accounts", Account.getAttributes<Account>()),
+    Session: sequelizeInstace.define("sessions", Session.getAttributes<Session>()),
+    VerificationToken: sequelizeInstace.define("verification_tokens", VerificationToken.getAttributes<VerificationToken>()),
   },
  });
 initDb();

@@ -30,13 +30,6 @@ export const initDb = async() => {
   console.info("Authenticating to database...");
   await sequelizeInstace.authenticate();
   console.info("Database authenticated!");
-  console.info("Syncing database...");
-  await sequelizeInstace.sync({
-    alter: true,
-    force: true,
-    logging: console.log
-  });
-  console.info("Database synced!");
 }
 
 export { sequelizeInstace }

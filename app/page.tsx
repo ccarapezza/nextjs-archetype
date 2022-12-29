@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <Grid container height="100vh" alignItems="center" justifyContent="center" direction="column">
       <h1><FontAwesomeIcon icon={faHouse} />Using Material UI with Next.js 13</h1>
+      <h4 className="text-red-500">(with Tailwind CSS)</h4>
       <Stack direction="column" columnGap={1}>
         <LoginButton />
         <AppDescription/>

@@ -24,6 +24,7 @@ const schema = yup.object({
 export default function Register(){
     const router = useRouter();
     const [error, setError] = useState("");
+    const [isFetching, setIsFetching] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<IRegisterForm>({
         resolver: yupResolver(schema)
     });
@@ -33,7 +34,7 @@ export default function Register(){
             headers : { 'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }
-
+        setIsFetching(true);
         await fetch('http://localhost:3000/api/auth/signup', options)
         .then(async res => {
             const response = await res.json();
@@ -45,6 +46,7 @@ export default function Register(){
                 setError(response.message)
             }
         });
+        setIsFetching(false);
     };
 
     return (
@@ -52,32 +54,37 @@ export default function Register(){
             <div>
                 <h1>Register</h1>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {error&&
-                    <small style={{color: "red", display: "block", margin: "15px"}}>{error}</small>
-                }
-                <div>
-                    <input {...register("username")} placeholder='Username' />
-                    <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.username?.message}</small>
-                </div>
-                <div>
-                    <input {...register("email")} placeholder='Email' />
-                    <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.email?.message}</small>
-                </div>
-                <div>
-                    <input {...register("password")}  type="password" placeholder='Password'/>
-                    <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.password?.message}</small>
-                </div>
-                <div>
-                    <input {...register("cpassword")}  type="password" placeholder='Confirm Password'/>
-                    <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.cpassword?.message}</small>
-                </div>
-                <div>
-                    <button type='submit'>
-                        Sign Up
-                    </button>
-                </div>
-            </form>
+            {isFetching&&
+                <div>Loading...</div>
+            }
+            {!isFetching&&
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    {error&&
+                        <small style={{color: "red", display: "block", margin: "15px"}}>{error}</small>
+                    }
+                    <div>
+                        <input {...register("username")} placeholder='Username' />
+                        <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.username?.message}</small>
+                    </div>
+                    <div>
+                        <input {...register("email")} placeholder='Email' />
+                        <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.email?.message}</small>
+                    </div>
+                    <div>
+                        <input {...register("password")}  type="password" placeholder='Password'/>
+                        <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.password?.message}</small>
+                    </div>
+                    <div>
+                        <input {...register("cpassword")}  type="password" placeholder='Confirm Password'/>
+                        <small style={{color: "red", display: "block", marginBottom: "15px"}}>{errors.cpassword?.message}</small>
+                    </div>
+                    <div>
+                        <button type='submit'>
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+            }
             <div>
                 <small>Have an account? <Link href={'/auth/signin'}>Sign In</Link></small>
             </div>
